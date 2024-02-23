@@ -1,0 +1,109 @@
+<html class="character_creation">
+    <head>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+
+    <div class="choice">
+
+        <p>
+            It's been so long since I last moved, gotta make sure this time I start on the right track.
+            Let's check quickly I don't have crumbs over my face.
+        </p>
+        <div class="face_choice">
+
+
+
+            <img id="face_image" src="./faces/main_face_0.jpeg">
+            <div class="face_list_div">
+                <select name="face_list" id="face_list"></select>
+            </div>
+
+        </div>
+
+        <p>
+            Welp, look at that perfectly clean. A bit more and I could almost pass for a functionning adult ( at least as long as I don't start running my mouth )
+        </p>
+
+        <p>
+            Let's see what the mail has in store for me
+        </p>
+        <p class="mail">
+            "Dear Mr 
+                <input type="text" id="fname" name="firstname" placeholder="firstname" />
+                <input type="text" id="lname" name="lastname" placeholder="lastname" />
+                <br><br>
+            The water and electricity of your new home have well be put under your name and should be usable as soon as you recieve this letter.
+            Everyone at 'WE ressource' wishes you the smoothest move-in possible.
+            <br><br>
+            Best regard"
+        </p>
+
+        <p>
+            Great news, can finaly take a long well earned bath after spending my first night here. Some good chilling thinking about the past and what I leave behind.
+            <br><br>
+            Relaxing in your bath, you let your mind wander, thinking about all this time you spent as a :
+        </p>
+
+
+        <section>
+            <div>
+                <input type="radio" id="control_01" name="select" value="1" checked>
+                <label for="control_01">
+                    <h2>Pfft</h2>
+                    <p>Awww, poor baby. Too afraid of the scary game sprites? I laugh at you.</p>
+                </label>
+            </div>
+
+            <div>
+                <input type="radio" id="control_02" name="select" value="2">
+                <label for="control_02">
+                    <h2>Wannabe</h2>
+                    <p>You're not a gaming God by any stretch of the imagination.</p>
+                </label>
+            </div>
+
+            <div>
+                <input type="radio" id="control_01" name="select" value="1" checked>
+                <label for="control_01">
+                    <h2>Pfft</h2>
+                    <p>Awww, poor baby. Too afraid of the scary game sprites? I laugh at you.</p>
+                </label>
+            </div>
+
+            <div>
+                <input type="radio" id="control_02" name="select" value="2">
+                <label for="control_02">
+                    <h2>Wannabe</h2>
+                    <p>You're not a gaming God by any stretch of the imagination.</p>
+                </label>
+            </div>
+        </section>
+
+
+    </div>
+    
+</html>
+
+<script>
+    var nb_faces = 6;
+    var select = document.getElementById("face_list");
+
+    for (let index = 1; index <= nb_faces; index++) {
+        var image_path = "./faces/main_face_"+index+".jpeg";
+
+        var person_item_value = "face_"+index;
+        
+
+        var option = document.createElement("option");
+        option.text = "Face "+index;
+        option.value = person_item_value;
+
+        select.appendChild(option)
+    }
+
+    select.onchange = function(){
+        var index = this.selectedIndex;
+        document.getElementById("face_image").src="./faces/main_face_"+index+".jpeg";
+    }
+</script>
