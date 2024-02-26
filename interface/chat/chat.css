@@ -1,0 +1,21 @@
+.user_chat {
+    background-color: #482307;
+    padding: 10px;
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+    margin-bottom: 15px;
+
+    img {
+        width: 60px;
+        height: fit-content;
+        margin-right: 20px;
+    }
+}
+
+
+.other_chat {
+    margin-left: auto;
+    background-color: #35791e;
+
+}

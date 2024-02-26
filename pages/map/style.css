@@ -1,0 +1,33 @@
+.map{
+    background-image: url("background.jpg");
+    background-position: center;
+    background-size: cover;
+
+
+    button.home {
+        top: 15%;
+        left: 25%;
+        position: absolute;
+    }
+
+    button.gym {
+        bottom: 15%;
+        left: 30%;
+        position: absolute;
+    }
+
+    .button_map:hover{
+        background-color: #914c1a;
+        color: #f8eedb;
+    }
+
+    .button_map {
+        background-color: #f8eedb;
+        border-radius: 10px;
+        width: fit-content;
+        padding: 5px;
+        border: 3px outset;
+        min-width: 80px;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,63 @@
+<html class="home">
+    <head>
+        <script>
+            var r = document.querySelector(':root');
+            r.style.setProperty('--url_img', localStorage.user_imagePath);
+
+        </script>
+
+        <link href="style.css" rel="stylesheet" type="text/css" />
+
+        <link href="../../interface/burger_menu/burgermenu.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/sidebar/sidebar.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/clock/clock.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/chat/chat.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../interface/burger_menu/burgermenu.js"></script>
+        <script src="../../interface/sidebar/sidebar.js"></script>
+        <script src="../../interface/clock/clock.js"></script>
+        <script src="../../interface/chat/chat.js"></script>
+
+    </head>
+
+    <script>
+        writeBurgerMenu();
+        writeSidebar();
+        writeClock();
+    </script>
+
+
+    <div class="text_area" id="text_area_clothes">
+
+        <p>
+            Let's see, what do I have stored in the closet ?
+        </p>
+
+        <div id="clothes" class="user_chat"></div>
+
+        <div class="player_choice">
+
+            <a href="../home/home.html">
+                <button>
+                    Return to the living room
+                </button>
+            </a>
+        </div>
+
+    </div>
+
+    
+</html>
+
+<script>
+
+    var items = new Map(JSON.parse(localStorage.user_items));
+    var clothes = new Map(JSON.parse(items.get("clothes")));
+
+    if(clothes.size==0){
+        var text_chat = "Nothing else than my good old duds t-shirt and jeans, guess I could up my game and get some new wear.";
+        var id = "clothes";
+        add_text_user(text_chat,id);
+    }
+
+</script>

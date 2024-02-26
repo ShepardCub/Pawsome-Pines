@@ -1,0 +1,13 @@
+
+.time{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: linear-gradient(45deg,
+    #fff 5%,
+    #d9bfa0 50%,
+    #fff 95%);
+    padding: 8px;
+    font-family: monospace;
+    font-size: 19px;
+}

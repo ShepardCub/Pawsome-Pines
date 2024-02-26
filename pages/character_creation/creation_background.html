@@ -4,7 +4,7 @@
     </head>
 
 
-    <div class="choice">
+    <form method="POST" action="start.html" class="text_area" id="form_creation">
 
         <p>
             It's been so long since I last moved, gotta make sure this time I start on the right track.
@@ -14,7 +14,7 @@
 
 
 
-            <img id="face_image" src="./faces/main_face_0.jpeg">
+            <img id="face_image" src="../../images/faces/main/main_face_0.jpeg">
             <div class="face_list_div">
                 <select name="face_list" id="face_list"></select>
             </div>
@@ -30,8 +30,8 @@
         </p>
         <p class="mail">
             "Dear Mr 
-                <input type="text" id="fname" name="firstname" placeholder="firstname" />
-                <input type="text" id="lname" name="lastname" placeholder="lastname" />
+                <input type="text" id="fname" name="firstname" placeholder="firstname" required/>
+                <input type="text" id="lname" name="lastname" placeholder="lastname" required/>
                 <br><br>
             The water and electricity of your new home have well be put under your name and should be usable as soon as you recieve this letter.
             Everyone at 'WE ressource' wishes you the smoothest move-in possible.
@@ -48,41 +48,48 @@
 
         <section>
             <div>
-                <input type="radio" id="control_01" name="select" value="1" checked>
-                <label for="control_01">
-                    <h2>Pfft</h2>
-                    <p>Awww, poor baby. Too afraid of the scary game sprites? I laugh at you.</p>
+                <input type="radio" id="background_IT" name="background_choice" value="background_IT" checked>
+                <label for="background_IT">
+                    <h2>IT graduate</h2>
+                    <p>Spending years behind a computer taught you a few things. You might not be the most social or muscular person but you definitly make up for that with  your brain and computer skills</p>
                 </label>
             </div>
 
             <div>
-                <input type="radio" id="control_02" name="select" value="2">
-                <label for="control_02">
-                    <h2>Wannabe</h2>
-                    <p>You're not a gaming God by any stretch of the imagination.</p>
+                <input type="radio" id="background_Thug" name="background_choice" value="background_Thug">
+                <label for="background_Thug">
+                    <h2>Thug</h2>
+                    <p>You had to do what you had to do, not that you particularly dislked it tho.For better or worse, the time in the street left its mark on you. You're stronger and picked a few tricks from your previous life than the average Joe, but look rougher on the edges and might come accross as dull</p>
                 </label>
             </div>
 
             <div>
-                <input type="radio" id="control_01" name="select" value="1" checked>
-                <label for="control_01">
-                    <h2>Pfft</h2>
-                    <p>Awww, poor baby. Too afraid of the scary game sprites? I laugh at you.</p>
+                <input type="radio" id="background_Seller" name="background_choice" value="background_Seller">
+                <label for="background_Seller">
+                    <h2>Seller</h2>
+                    <p>You've got a mouth and know how to use it ( pun intended ). Days in and out at the retail shop gave you all the gab you could need. You're pretty social and have some cash in saving, tho saying gibberish non stop seems to have dumbed you down</p>
                 </label>
             </div>
 
             <div>
-                <input type="radio" id="control_02" name="select" value="2">
-                <label for="control_02">
-                    <h2>Wannabe</h2>
-                    <p>You're not a gaming God by any stretch of the imagination.</p>
+                <input type="radio" id="background_Party" name="background_choice" value="background_Party">
+                <label for="background_Party">
+                    <h2>Party boy</h2>
+                    <p>Youth is meant to be enjoyed, and you followed that principle to its fullest. Party and clubs, you knew the best places in the city. You're a real social and know a few tricks from when you needed to find happy pills ,even tho you wondered if taking so much didn't fry some parts of your brain. That lifestyle wasn't free and you start with less money </p>
                 </label>
             </div>
         </section>
 
 
-    </div>
+        <div class="player_choice">
+            <button href="start.html" onclick="save_creation()">
+                That's the life, still can't stay all day in there. Time to start my new life
+            </button>
+        <div>
+    </form>
     
+
+
 </html>
 
 <script>
@@ -90,7 +97,6 @@
     var select = document.getElementById("face_list");
 
     for (let index = 1; index <= nb_faces; index++) {
-        var image_path = "./faces/main_face_"+index+".jpeg";
 
         var person_item_value = "face_"+index;
         
@@ -104,6 +110,116 @@
 
     select.onchange = function(){
         var index = this.selectedIndex;
-        document.getElementById("face_image").src="./faces/main_face_"+index+".jpeg";
+        var image_path = "../../images/faces/main/main_face_"+index+".jpeg";
+
+        document.getElementById("face_image").src=image_path;
+    }
+
+
+
+    function save_creation(){
+
+        localStorage.clear();
+
+        var image_path =  document.getElementById('face_image').src;
+        var firstName =  document.getElementById('fname').value;
+        var lastName =  document.getElementById('lname').value;
+        var background = document.querySelector('input[name="background_choice"]:checked').value;
+
+        localStorage.setItem("user_imagePath",image_path );
+        localStorage.setItem("user_lastname",lastName );
+        localStorage.setItem("user_firstname", firstName);
+        localStorage.setItem("user_background", background);
+
+
+        var strength = 10;
+        var intelligence = 10;
+        var charisma = 10;
+        var computer = 10;
+        var crime = 0;
+        var money = 100;
+        var cop_awerness = 0;
+        var attitude = 0;
+
+        switch (background) {
+
+            case 'background_IT':
+                computer += 30;
+                intelligence += 10;
+                charisma -= 10;
+                strength -=10;
+                break;
+
+            case 'background_Thug':
+                strength += 20;
+                crime += 20;
+                charisma -= 10;
+                intelligence -=10;
+                break;
+
+            case 'background_Seller':
+                charisma += 20;
+                money += 50;
+                intelligence -=10;
+                break;
+
+            case 'background_Party':
+                crime +=10;
+                charisma += 30;
+                intelligence -=10
+                money -= 80;
+                break;
+        
+            default:
+                break;
+        }
+
+
+        localStorage.setItem("user_money", money);
+
+        localStorage.setItem("user_copawerness", cop_awerness);
+
+        var skills = new Map();
+        skills.set('Strength',strength);
+        skills.set('Intelligence',intelligence);        
+        skills.set('Charisma',charisma);
+        skills.set('Computer',computer);
+        skills.set('Crime',crime);
+        skills.set('Attitude',attitude);
+        localStorage.setItem("user_skills", JSON.stringify(Array.from(skills.entries())));
+
+        var job = new Map();
+        job.set('id',0);
+        job.set('name',"Jobless");
+        localStorage.setItem("user_job", JSON.stringify(Array.from(job.entries())));
+
+        var items = new Map();
+
+        var clothes = new Map();
+        items.set('clothes', JSON.stringify(Array.from(clothes)));
+        
+        var specials = new Map();
+        items.set('specials',JSON.stringify(Array.from(specials)));
+        
+        var sextoys = new Map();
+        items.set('sextoys',JSON.stringify(Array.from(sextoys)));
+
+        localStorage.setItem("user_items", JSON.stringify(Array.from(items.entries())));
+
+        var date = new Date("03/27/2024 08:00");
+        localStorage.setItem("date", date.getTime());
+
+        var phone = new Map();
+        var contact = new Map();
+        phone.set("contact",JSON.stringify(Array.from(contact.entries())))
+        localStorage.setItem("phone",JSON.stringify(Array.from(phone.entries())));
+
+        var parent = getParent(getParent(getParent(getParent(image_path))));
+        localStorage.setItem("racine_path",parent);
+    }
+
+    function getParent(path){
+        const parent = path.substring(0, path.lastIndexOf('/'));
+        return parent;
     }
 </script>

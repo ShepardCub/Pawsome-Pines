@@ -1,7 +1,8 @@
 .main_page{
     background-image: url("background.jpg");
     background-position: center;
-
+    background-size: cover;
+    
     .title{
         h1{
             width: fit-content;

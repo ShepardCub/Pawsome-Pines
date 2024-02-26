@@ -1,0 +1,79 @@
+<html class="home">
+    <head>
+        <script>
+            var r = document.querySelector(':root');
+            r.style.setProperty('--url_img', localStorage.user_imagePath);
+
+        </script>
+
+        <link href="style.css" rel="stylesheet" type="text/css" />
+
+        <link href="../../interface/burger_menu/burgermenu.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/sidebar/sidebar.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/clock/clock.css" rel="stylesheet" type="text/css" />
+        <link href="../../interface/chat/chat.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../interface/burger_menu/burgermenu.js"></script>
+        <script src="../../interface/sidebar/sidebar.js"></script>
+        <script src="../../interface/clock/clock.js"></script>
+        <script src="../../interface/chat/chat.js"></script>
+
+    </head>
+
+    <script>
+        writeBurgerMenu();
+        writeSidebar();
+        writeClock();
+    </script>
+
+
+    <div class="text_area" id="text_area_clothes">
+
+        <p>
+            Time for a quick nap. I'll doze off for :
+        </p>
+
+        <div class="player_choice">
+
+            <a href="../home/home.html">
+                <button>
+                    Return to the living room
+                </button>
+            </a>
+
+            <div id="time_nap"></div>
+            <div id="sleep_next_day"></div>
+
+
+        </div>
+    </div>
+</html>
+
+<script>
+
+    sleepNextDay("time_nap");
+    setNap("sleep_next_day");
+
+    function sleepNextDay(id){
+        var container = document.getElementById(id);
+        
+        var divTime = document.createElement("button");
+        divTime.innerText = "Sleep till tomorrow";
+        divTime.onclick = function () {nextDay();window.location.href = "../home/home.html"};
+        container.appendChild(divTime);
+    }
+
+    function setNap(id){
+        var container = document.getElementById(id);
+        var array_nap = [1,2,3,4,5,6,7,8];
+
+        array_nap.forEach((sleep_hours)=>{
+            if(isSpendTimeValid(sleep_hours)){
+                var divTime = document.createElement("button");
+                divTime.innerText = "Sleep for "+sleep_hours+" hours";
+                divTime.onclick = function () {spendTime(sleep_hours);window.location.href = "../home/home_rest.html"};
+                container.appendChild(divTime);
+            }
+        });
+    }
+</script>
