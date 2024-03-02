@@ -1,10 +1,5 @@
 <html class="home">
     <head>
-        <script>
-            var r = document.querySelector(':root');
-            r.style.setProperty('--url_img', localStorage.user_imagePath);
-
-        </script>
 
         <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -17,6 +12,7 @@
         <script src="../../interface/sidebar/sidebar.js"></script>
         <script src="../../interface/clock/clock.js"></script>
         <script src="../../interface/chat/chat.js"></script>
+        <script src="../../tooltip/general.js"></script>
 
     </head>
 
@@ -67,13 +63,18 @@
         var container = document.getElementById(id);
         var array_nap = [1,2,3,4,5,6,7,8];
 
+        var container_hour = document.createElement("div");
+        container_hour.classList.add("container_hour");
+
         array_nap.forEach((sleep_hours)=>{
             if(isSpendTimeValid(sleep_hours)){
                 var divTime = document.createElement("button");
                 divTime.innerText = "Sleep for "+sleep_hours+" hours";
                 divTime.onclick = function () {spendTime(sleep_hours);window.location.href = "../home/home_rest.html"};
-                container.appendChild(divTime);
+                container_hour.appendChild(divTime);
             }
         });
+
+        container.appendChild(container_hour);
     }
 </script>

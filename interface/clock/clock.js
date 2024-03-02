@@ -19,7 +19,7 @@ function getClock(){
 }
 
 function getTime(){
-    var time = new Date(parseInt(localStorage.getItem("date")));
+    var time = new Date(parseInt(getLocalStorageString("date")));
     var hours = time.getHours();
     var minutes = time.getMinutes();
     return { hours,minutes};
@@ -33,13 +33,13 @@ function toHoursAndMinutes(totalMinutes) {
 }
 
 function spendTime(hours){
-    var time = new Date(parseInt(localStorage.getItem("date")));
+    var time = new Date(parseInt(getLocalStorageString("date")));
     time.setHours(time.getHours() + hours);
-    localStorage.setItem("date",time.getTime());
+    setLocalStorage("date",time.getTime());
 }
 
 function nextDay(){
-    var date = new Date(parseInt(localStorage.getItem("date")));
+    var date = new Date(parseInt(getLocalStorageString("date")));
     if(date.getHours()!=0){
         date.setDate(date.getDate()+1);
     }
@@ -47,11 +47,11 @@ function nextDay(){
     date.setHours(8);
     date.setMinutes(0);
 
-    localStorage.setItem("date",date.getTime());
+    setLocalStorage("date",date.getTime());
 }
 
 function isSpendTimeValid(hours){
-    var time = new Date(parseInt(localStorage.getItem("date")));
+    var time = new Date(parseInt(getLocalStorageString("date")));
     if((time.getHours() + hours)>24 || time.getHours() == 0){
         return false;
     }

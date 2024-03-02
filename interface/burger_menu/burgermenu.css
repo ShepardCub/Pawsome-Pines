@@ -68,7 +68,7 @@
     display: none;
 }
 
-.skill_list{
+.menu_list{
     margin-left: auto;
     display: block;
     width: 70%;
@@ -141,18 +141,6 @@ img.phone_img{
     display: none;
 }
 
-.inventory_list{
-    margin-left: auto;
-    display: block;
-    width: 70%;
-    margin-right: auto;
-    margin-top: 5%;
-    background-color: #d9bfa0;
-    padding: 20px;
-    border-radius: 10px;
-    border: 10px solid #482307;
-}
-
 .inventory_element {
     padding: 10px;
     background-image: linear-gradient(to bottom, #fff, #f8eedb);;
@@ -162,4 +150,25 @@ img.phone_img{
 
 .inventory_element h1 {
     text-decoration: underline;
+}
+
+.save_element {
+    background-color: #f8eedb;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    display: flex;
+
+    .save_text{
+        width: 10%;
+    }
+    
+    .save_label{
+        width: 60%;
+        text-align: center;
+    }
+
+    button{
+        cursor: pointer;
+    }
 }

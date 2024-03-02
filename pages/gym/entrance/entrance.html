@@ -11,6 +11,9 @@
         <script src="../../../interface/sidebar/sidebar.js"></script>
         <script src="../../../interface/clock/clock.js"></script>
         <script src="../../../interface/chat/chat.js"></script>
+        <script src="../../../tooltip/place.js"></script>
+        <script src="../../../tooltip/stat.js"></script>
+        <script src="../../../tooltip/general.js"></script>
 
     </head>
 
@@ -20,47 +23,7 @@
         writeClock();
     </script>
 
-    <div class="text_area">
-        <p>
-            Couldn't hurt to train those gain, or at least make sure everything still works. Plus there might be some nice eye candy in here
-        </p>
-        
-        <div id="welcome_1" class="user_chat"></div>
-        <div id="welcome_2" class="user_chat"></div>
-        <div id="welcome_3" class="user_chat"></div>
-
-        <div class="player_choice">
-
-            <a id="workout">
-                <button>
-                    Workout alone
-                </button>
-            </a>
-
-            <a id="path_map">
-                <button>
-                    Leave the gym
-                </button>
-            </a>
-        </div>
-    </div>
+    <div class="text_area" id="chat"></div>
 </html>
 
-<script>
-
-    var recptionist_img = localStorage.racine_path+"/interface/chat/unknown_woman_1.jpg";
-
-    document.getElementById("path_map").href = localStorage.racine_path+"/pages/map/map.html";
-
-    var text_chat = "Hello sweety. You're in luck ! Today our payment system are broken, so the gym decided to let everyone have free acces to the equipment. Hopefully it'll help bring some newby here. God knows we need it. Enjoy !";
-    var id = "welcome_1";
-    add_text_other(text_chat,id,recptionist_img);
-    
-    var text_chat = "That's awsome, thanks. I'll make sure to, and who knows, might signup when the system is back up";
-    var id = "welcome_2";
-    add_text_user(text_chat,id);
-
-    var text_chat = "And we'd welcome you with pleasure. Still no pressure, for today focus on enjoying the facility";
-    var id = "welcome_3";
-    add_text_other(text_chat,id,recptionist_img);
-</script>
+<script src="./entrance.js"></script>

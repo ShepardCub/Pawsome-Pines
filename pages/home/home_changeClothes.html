@@ -2,7 +2,6 @@
     <head>
         <script>
             var r = document.querySelector(':root');
-            r.style.setProperty('--url_img', localStorage.user_imagePath);
 
         </script>
 
@@ -17,7 +16,7 @@
         <script src="../../interface/sidebar/sidebar.js"></script>
         <script src="../../interface/clock/clock.js"></script>
         <script src="../../interface/chat/chat.js"></script>
-
+        <script src="../../tooltip/general.js"></script>
     </head>
 
     <script>
@@ -51,7 +50,7 @@
 
 <script>
 
-    var items = new Map(JSON.parse(localStorage.user_items));
+    var items = new Map(JSON.parse(getLocalStorageString("user_items")));
     var clothes = new Map(JSON.parse(items.get("clothes")));
 
     if(clothes.size==0){

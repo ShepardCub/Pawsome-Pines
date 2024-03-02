@@ -1,6 +1,7 @@
 var sidenav,openBtn,closeBtn,phoneSpan,closeBtnPhone,phone,contact_list;
 var infoSpan,closeBtnInfo,info;
 var inventorySpan,closeBtnInventory,inventory;
+var saveSpan,closeBtnSave,save;
 
 /* Set the width of the side navigation to 250px */
 function openNav() {
@@ -20,7 +21,7 @@ function showcontact_list(){
   contact_list.style.display= "block";
   contact_phone_menu.style.display = "none";
 
-  var phone = new Map(JSON.parse(localStorage.phone));
+  var phone = getLocalStorageMap("phone");
   var contact = new Map(JSON.parse(phone.get('contact')));
 
   if(contact.size == 0){
@@ -39,8 +40,120 @@ function showInventory() {
   inventory.style.display = "block";
 }
 
+function showSave() {
+  save.style.display = "block";
+}
+
+function hideSave(e) {
+  if(e.target==save || e.target==closeBtnSave){
+    save.style.display = "none";
+    closeNav();
+  }
+}
+
+function addElementsSave(){
+  
+  var save_list = document.getElementById("save_list");
+  
+  for (let index = 0; index < 8; index++) {
+    
+    var elementSave = setElementSave(index);
+    save_list.appendChild(elementSave);
+  }
+}
+
+function setElementSave(index){
+  var elementSave = document.createElement("div");
+    
+  elementSave.classList.add("save_element");
+  elementSave.setAttribute("id","save_"+index)
+
+  var saveText = document.createElement("p");
+  saveText.classList.add("save_text")
+  saveText.innerText = "Save "+index;
+
+  elementSave.appendChild(saveText);
+
+  var saveLabel = document.createElement("p");
+  saveLabel.classList.add("save_label")
+  if(getSave(index) != null){
+    
+    var buttonLoad = document.createElement("button");
+    buttonLoad.innerText = "Load";
+    buttonLoad.classList.add("load_button");
+    buttonLoad.onclick =  function(){
+      loadSaveElement(index);
+    };
+  
+    elementSave.appendChild(buttonLoad);
+
+    saveLabel.innerText = "filled"
+  }
+  else{
+
+    var buttonSave = document.createElement("button");
+    buttonSave.innerText = "Save";
+    buttonSave.classList.add("save_button");
+    buttonSave.onclick =  function(){
+      saveElement(index);
+    };
+  
+    elementSave.appendChild(buttonSave);
+
+    saveLabel.innerText = "---- empty ----"
+  }
+
+  elementSave.appendChild(saveLabel);
+
+  var buttonDelete = document.createElement("button");
+  buttonDelete.innerText = "Delete";
+  buttonDelete.classList.add("delete_button");
+  buttonDelete.addEventListener("click", function(){
+    console.log("click")
+    deleteSaveElement(index)
+  })
+  elementSave.appendChild(buttonDelete);
+
+  return elementSave;
+}
+
+function loadSaveElement(number){
+  var save = getSave(number);
+  setCurrentSave(save);
+
+  var page = getLocalStorageString("current_place");
+  var racine = getLocalStorageString("racine_path");
+
+  var paths = page.split("_");
+
+  var link = racine +"/pages" ;
+  paths.forEach(element => {
+    link+="/"+element;
+  });
+
+  link+=".html";
+  window.location.href = link;
+
+}
+
+function saveElement(number){
+  setSave(number,localStorage.current_save_pawsome);
+  refreshSaveElement(number);
+}
+
+function deleteSaveElement(number){
+  emptySave(number);
+  refreshSaveElement(number);
+}
+
+function refreshSaveElement(index){
+  var divElement = setElementSave(index);
+  document.getElementById("save_list").replaceChild(divElement,document.getElementById("save_"+index) );
+
+}
+
 function addElementsInventory(){
-  var items = new Map(JSON.parse(localStorage.user_items));
+  var items = getLocalStorageMap("user_items");
 
   elementInventory(items,'clothes')
   elementInventory(items,'sextoys')
@@ -78,16 +191,18 @@ function hideInventory(e) {
 }
 
 function fillInfo(){
-  var skills = new Map(JSON.parse(localStorage.user_skills));
+  
+  var skills = getLocalStorageMap("user_skills");
 
-  var face = localStorage.user_imagePath;
+  var face = getLocalStorageString("user_imagePath");
   addFaceUserSkill(face);
   addbackgroundInfo();
   skills.forEach(addSkill);
 }
 
 function addbackgroundInfo(){
-  var background = "Background : "+localStorage.user_background.replace("background_","");
+  var user_background = getLocalStorageString("user_background");
+  var background = "Background : "+user_background.replace("background_","");
   addInfo(background);
 }
 
@@ -128,6 +243,8 @@ function hidePhone(e){
 }
 
 function writeBurgerMenu() {
+  var racine_path = getLocalStorageString("racine_path");
+
   document.write('\
     <div class="menu_parent">\
       <div id="mySidenav" class="sidenav">\
@@ -136,8 +253,9 @@ function writeBurgerMenu() {
             <li><a href="#" id="phoneSpan">Phone</a></li>\
             <li><a href="#" id="infoSpan">Info</a></li>\
             <li><a href="#" id="inventorySpan">Inventory</a></li>\
-            <li><a href="../character_creation/creation_background.html">Restart</a></li>\
-        </ul>\
+            <li><a href="#" id="saveSpan">Save</a></li>\
+            <li><a href="'+racine_path+'/pages/character_creation/creation_background.html">Restart</a></li>\
+          </ul>\
       </div>\
       \
       <a href="#" id="openBtn">\
@@ -149,7 +267,7 @@ function writeBurgerMenu() {
       </a>\
       \
       <div id="info" class="burger_menu_item">\
-        <div id="skill_list" class="skill_list">\
+        <div id="skill_list" class="menu_list">\
           <a id="closeBtnInfo" href="#" class="close">x</a>\
         </div>\
       </div>\
@@ -158,12 +276,12 @@ function writeBurgerMenu() {
         <div id="phone_list" class="phone_list">\
           <a id="closeBtnPhone" href="#" class="close">x</a>\
           <div class="phone_container">\
-            <img src="'+localStorage.racine_path+'/interface/burger_menu/phone/phone.png" class="phone_img">\
+            <img src="'+racine_path+'/interface/burger_menu/phone/phone.png" class="phone_img">\
             <div class="phone_content">\
               <div class="contact_phone">\
                 \
                 <div id="contact_phone_menu" class="contact_phone_menu">\
-                  <img src="'+localStorage.racine_path+'/interface/burger_menu/phone/contact.png">\
+                  <img src="'+racine_path+'/interface/burger_menu/phone/contact.png">\
                   <p>Contact</p>\
                 </div>\
                 \
@@ -176,8 +294,14 @@ function writeBurgerMenu() {
         </div>\
       </div>\
       \
+      <div id="save" class="burger_menu_item">\
+        <div id="save_list" class="menu_list">\
+          <a id="closeBtnSave" href="#" class="close">x</a>\
+        </div>\
+      </div>\
+      \
       <div id="inventory" class="burger_menu_item">\
-        <div id="inventory_list" class="inventory_list">\
+        <div id="inventory_list" class="menu_list">\
           <a id="closeBtnInventory" href="#" class="close">x</a>\
         </div>\
       </div>\
@@ -205,6 +329,9 @@ function writeBurgerMenu() {
   inventorySpan = document.getElementById("inventorySpan");
   inventory = document.getElementById("inventory");
 
+  closeBtnSave = document.getElementById("closeBtnSave");
+  saveSpan = document.getElementById("saveSpan");
+  save = document.getElementById("save");
 
   openBtn.onclick = openNav;
   closeBtn.onclick = closeNav;
@@ -223,7 +350,12 @@ function writeBurgerMenu() {
   closeBtnInventory.onclick = hideInventory;
   inventory.onclick = hideInventory;
 
+  saveSpan.onclick = showSave;
+  closeBtnSave.onclick = hideSave;
+  save.onclick = hideSave;
+
   fillInfo();
   addElementsInventory();
+  addElementsSave();
 
 }
